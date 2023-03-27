@@ -10,8 +10,8 @@ The program is run from terminal:
 python3 get_results_gaussian.py [-h] [-i I] [-o O] [-l L] [-nested] [-e E] [-overwrite]
 ```
 Optional arguments: <br />
-  -h, --help  show this help message and exit <br />
-  -i I  Folder with input files. <br />
+  -h, --help &nbsp show this help message and exit <br />
+  -i I &nbsp Folder with input files. <br />
   -o O  Specific beginning for exported data filenames. <br />
   -l L  Specifies the labels for saving results. 0 - no labels, 1 - means only filenames will be specified, 2 - also a folder in which file exist, 3 - folder of folder and so on.  <br />
   -nested Searches for files through subdirectories.  <br />
