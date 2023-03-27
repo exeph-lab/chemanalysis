@@ -6,8 +6,7 @@ Gaussian result explorer is a Python program for dealing with Gaussian 09 or 16 
 
 The program is run from terminal:
 
-'''python3 get_results_gaussian.py [-h] [-i I] [-o O] [-l L] [-nested] [-e E] [-overwrite]
-'''
+'python3 get_results_gaussian.py [-h] [-i I] [-o O] [-l L] [-nested] [-e E] [-overwrite]'
 Optional arguments:
   -h, --help  show this help message and exit
   -i I        Folder with input files.
