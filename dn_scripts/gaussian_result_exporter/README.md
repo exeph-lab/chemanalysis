@@ -1,6 +1,6 @@
 # Gaussian result explorer
 
-Gaussian result explorer is a Python program for dealing with Gaussian 09 or 16 output files. Currently ground state energies and dihedrals angles exporting is  supported. Scans multiple gaussian .log or .out files and saves selected results to the text file. Searching directory can be specified or the script can be run from the target directory.
+Gaussian result explorer (data analyser) is a Python program for dealing with multiple Gaussian 09 or 16 output files. Currently exporting of ground state energies and dihedrals is supported. Scans multiple gaussian .log or .out files and saves selected results to the text file. Searching directory can be specified or the script can be run from the target directory.
 
 ## Usage
 
