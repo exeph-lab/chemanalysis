@@ -1,4 +1,9 @@
-symbols = {
+
+def atomnames2str(atom_list):
+    return [elements[a] + str(i + 1) for i, a in enumerate(atom_list)]
+
+
+elements = {
     1:  "H",
     2:  "He",
     3:  "Li",
