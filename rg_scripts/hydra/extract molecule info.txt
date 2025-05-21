@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Download the file
+wget -nv "https://chibakoudai.sharepoint.com/:u:/s/stair06/EcTlivvyNr5CihSlVeB9g2kBU-xrVuZp2LL2YOZgGHmWoQ?download=1" -O b3lyp_pm6_CHON300noSalt_ver1.0.1-postgrest-docker-compose.tar.xz
+
+# Check the checksum
+sha256sum b3lyp_pm6_CHON300noSalt_ver1.0.1-postgrest-docker-compose.tar.xz
+
+# Extract the tar.xz file
+tar xvfJ b3lyp_pm6_CHON300noSalt_ver1.0.1-postgrest-docker-compose.tar.xz
+
+----------------------------------------------------------------
+
+#!/bin/bash
+
+# Get the container ID for the db service
+CONTAINER_ID=$(docker-compose ps -q db)
+
+# Export data from the Postgres database to a CSV file inside the container
+docker exec -i "$CONTAINER_ID" psql -U pgrest db -c "\COPY (
+    SELECT
+        cid,
+        data->'pubchem'->'B3LYP@PM6'->'atoms'->'coords'->'3d' as coordinates,
+        data->'pubchem'->'B3LYP@PM6'->'atoms'->'elements'->'number' as atomic_numbers,
+        data->'pubchem'->'openbabel'->>'Canonical SMILES' as smiles
+    FROM b3lyp_pm6_chon300nosalt
+) TO '/tmp/all_compounds.csv' WITH CSV HEADER"
+
+# Copy the CSV file from the container to the current local directory
+docker cp "$CONTAINER_ID":/tmp/all_compounds.csv ./all_compounds.csv
+
+# Remove the CSV file from inside the container
+docker exec "$CONTAINER_ID" rm /tmp/all_compounds.csv
+
+echo "Export complete. File saved as all_compounds.csv"
+
+----------------------------------------------------------------
+
+docker exec -i $(docker-compose ps -q db) psql -U pgrest db -c "\COPY (
+    SELECT 
+        cid,
+        data->'pubchem'->'B3LYP@PM6'->'atoms'->'coords'->'3d' as coordinates,
+        data->'pubchem'->'B3LYP@PM6'->'atoms'->'elements'->'number' as atomic_numbers,
+        data->'pubchem'->'openbabel'->>'Canonical SMILES' as smiles 
+    FROM b3lyp_pm6_chon300nosalt
+) TO '/tmp/all_compounds.csv' WITH CSV HEADER"
+
+docker cp $(docker-compose ps -q db):/tmp/all_compounds.csv ./all_compounds.csv
